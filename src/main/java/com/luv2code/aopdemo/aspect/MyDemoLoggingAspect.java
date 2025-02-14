@@ -1,13 +1,16 @@
 package com.luv2code.aopdemo.aspect;
 
+import com.luv2code.aopdemo.Account;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Aspect
-@Order(1)
+@Order(2)
 @Component
 public class MyDemoLoggingAspect {
 
@@ -23,9 +26,24 @@ public class MyDemoLoggingAspect {
 //    @Before("execution(* com.luv2code.aopdemo.dao.*.add*(..))")  // match package and any number of parameters
 //    @Before("forDaoPackage()")
     @Before("com.luv2code.aopdemo.aspect.AopExpressions.forDaoPackageWithoutGettersAndSetters()")
-    public void beforeAddAccountAdvice() {
+    public void beforeAddAccountAdvice(JoinPoint joinPoint) {
 
         System.out.println("===>Perform logging demo aspect");
+
+        // display the method signature
+        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+        System.out.println("Method: " + methodSignature);
+
+        // display method arguments
+        Object[] args = joinPoint.getArgs();
+        for (Object arg : args) {
+            System.out.println("Arg: " + arg);
+
+            if (arg instanceof Account account) {
+                System.out.println("Account name: " + account.getName());
+                System.out.println("Account level: " + account.getLevel());
+            }
+        }
     }
 
     @After("com.luv2code.aopdemo.aspect.AopExpressions.forDaoPackageWithoutGettersAndSetters()")

@@ -6,7 +6,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Aspect
-@Order(3)
+@Order(1)
 @Component
 public class MyCloudLogAspect {
 

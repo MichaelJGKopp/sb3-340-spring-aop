@@ -33,7 +33,11 @@ public class AopdemoApplication {
 
 	private void demoTheBeforeAdviceMethod(AccountDAO accountDAO) {
 
-		accountDAO.addAccount(new Account());
+		Account account = new Account();
+		account.setName("John Doe");
+		account.setLevel("Platinum");
+
+		accountDAO.addAccount(account);
 
 		membershipDAOImpl.addAccount();
 
