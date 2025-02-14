@@ -36,5 +36,8 @@ public class AopdemoApplication {
 		accountDAO.addAccount(new Account());
 
 		membershipDAOImpl.addAccount();
+
+		accountDAO.setName("foobar");
+		System.out.println("AccountDAO name: " + accountDAO.getName());
 	}
 }
