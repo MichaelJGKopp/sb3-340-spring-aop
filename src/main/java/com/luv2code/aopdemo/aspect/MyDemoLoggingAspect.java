@@ -1,5 +1,7 @@
 package com.luv2code.aopdemo.aspect;
 
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -29,4 +31,11 @@ public class MyDemoLoggingAspect {
 
         System.out.println("\n===>Executing @Before advice on method");
     }
+
+    @After("forDaoPackage()")
+    public void afterAddAccountAdvice() {
+
+        System.out.println("===>Executing @After advice on method\n");
+    }
+
 }
