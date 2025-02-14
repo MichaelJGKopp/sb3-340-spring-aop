@@ -1,36 +1,19 @@
 package com.luv2code.aopdemo.aspect;
 
 import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Aspect
+@Order(1)
 @Component
 public class MyDemoLoggingAspect {
 
     // here are all the advices for logging
 
     // WHEN USING * LIMIT RANGE TO PROJECT PACKAGE, NARROW POINT CUT EXPRESSION
-
-
-    @Pointcut("execution(* com.luv2code.aopdemo.dao.*.*(..))")  // match any package/method/number of parameters
-    private void forDaoPackage() {
-    }
-
-    @Pointcut("execution(* com.luv2code.aopdemo.dao.*.set*(..))")  // match setters
-    private void setters() {
-    }
-
-    @Pointcut("execution(* com.luv2code.aopdemo.dao.*.get*(..))")  // match getters
-    private void getters() {
-    }
-
-    @Pointcut("forDaoPackage() && !(setters() || getters())")  // match package exclude setters and getters
-    private void forDaoPackageWithoutGettersAndSetters() {
-    }
 
 //    @Before("execution(public void addAccount())") // match any class
 //    @Before("execution(public void com.luv2code.aopdemo.dao.AccountDAO.addAccount())")  // match specific interface/implementation
@@ -39,13 +22,13 @@ public class MyDemoLoggingAspect {
 //    @Before("execution(* com.luv2code.aopdemo.dao.*.add*(*))")  // match package and any one parameter
 //    @Before("execution(* com.luv2code.aopdemo.dao.*.add*(..))")  // match package and any number of parameters
 //    @Before("forDaoPackage()")
-    @Before("forDaoPackageWithoutGettersAndSetters()")
+    @Before("com.luv2code.aopdemo.aspect.AopExpressions.forDaoPackageWithoutGettersAndSetters()")
     public void beforeAddAccountAdvice() {
 
-        System.out.println("\n===>Executing @Before advice on method");
+        System.out.println("===>Perform logging demo aspect");
     }
 
-    @After("forDaoPackage()")
+    @After("com.luv2code.aopdemo.aspect.AopExpressions.forDaoPackageWithoutGettersAndSetters()")
     public void afterAddAccountAdvice() {
 
         System.out.println("===>Executing @After advice on method\n");
