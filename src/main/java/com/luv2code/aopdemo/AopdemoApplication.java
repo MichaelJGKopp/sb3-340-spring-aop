@@ -33,7 +33,7 @@ public class AopdemoApplication {
 
 	private void demoTheBeforeAdviceMethod(AccountDAO accountDAO) {
 
-		accountDAO.addAccount();
+		accountDAO.addAccount(new Account());
 
 		membershipDAOImpl.addAccount();
 	}
