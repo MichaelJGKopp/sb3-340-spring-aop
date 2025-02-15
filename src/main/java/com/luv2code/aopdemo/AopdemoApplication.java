@@ -44,6 +44,6 @@ public class AopdemoApplication {
 		accountDAO.setName("foobar");
 		System.out.println("AccountDAO name: " + accountDAO.getName() + "\n");
 
-		accountDAO.findAllAccounts();
+		accountDAO.findAccounts();
 	}
 }

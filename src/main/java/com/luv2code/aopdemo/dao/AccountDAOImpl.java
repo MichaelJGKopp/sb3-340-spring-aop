@@ -23,7 +23,7 @@ public class AccountDAOImpl implements AccountDAO {
     }
 
     @Override
-    public List<Account> findAllAccounts() {
+    public List<Account> findAccounts() {
         return List.of(
                 new Account("John", "Silver"),
                 new Account("Madhu", "Platinum"));

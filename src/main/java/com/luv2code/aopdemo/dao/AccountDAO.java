@@ -9,5 +9,5 @@ public interface AccountDAO {
     void addAccount(Account account);
     void setName(String name);
     String getName();
-    List<Account> findAllAccounts();
+    List<Account> findAccounts();
 }
