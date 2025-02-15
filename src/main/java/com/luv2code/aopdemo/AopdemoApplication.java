@@ -43,7 +43,7 @@ public class AopdemoApplication {
 		try {
 			membershipDAO.addAccount();
 		} catch (SQLException e) {
-			System.out.println("Caught exception: " + e);
+			System.out.println("Caught exception in main after AOPProxy: " + e);
 		}
 	}
 
