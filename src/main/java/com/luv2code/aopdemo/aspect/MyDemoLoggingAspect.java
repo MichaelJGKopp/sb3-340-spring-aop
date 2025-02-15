@@ -106,7 +106,18 @@ public class MyDemoLoggingAspect {
         long begin = System.nanoTime();
 
         // call target method
-        Object result = proceedingJoinPoint.proceed();
+        Object result = null;
+
+        try {
+            // execute the method
+            result = proceedingJoinPoint.proceed();
+        } catch (RuntimeException e) {
+            // log exception
+            System.out.println("@Around advice, exception caught: " + e);
+
+            // give default return value
+            result = "Default return value";
+        }
 
         // get end timestamp
         long end = System.nanoTime();

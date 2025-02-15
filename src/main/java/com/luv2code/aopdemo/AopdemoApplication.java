@@ -42,13 +42,20 @@ public class AopdemoApplication {
 			demoTheAfterThrowingAdviceMethod(membershipDAO);
 
 			demoTheAroundAdviceMethod(trafficFortuneService);
+
+			demoTheAroundAdviceMethodHandleException(trafficFortuneService);
 		};
+	}
+
+	private void demoTheAroundAdviceMethodHandleException(TrafficFortuneService trafficFortuneService) {
+		String fortune = trafficFortuneService.getFortune(true);
+		System.out.println("Fortune return value: " + fortune);
 	}
 
 	private void demoTheAroundAdviceMethod(TrafficFortuneService trafficFortuneService) {
 
-		String fortune = trafficFortuneService.getFortune();
-		System.out.println(fortune);
+		String fortune = trafficFortuneService.getFortune(false);
+		System.out.println("Fortune return value: " + fortune + "\n");
 	}
 
 	private void demoTheAfterThrowingAdviceMethod(MembershipDAO membershipDAO) {
