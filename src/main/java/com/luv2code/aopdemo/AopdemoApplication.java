@@ -3,6 +3,8 @@ package com.luv2code.aopdemo;
 import com.luv2code.aopdemo.dao.AccountDAO;
 import com.luv2code.aopdemo.dao.MembershipDAO;
 import com.luv2code.aopdemo.dao.MembershipDAOImpl;
+import com.luv2code.aopdemo.service.TrafficFortuneService;
+import com.luv2code.aopdemo.service.TrafficFortuneServiceImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,7 +28,10 @@ public class AopdemoApplication {
 
 
 	@Bean
-	public CommandLineRunner commandLineRunner(AccountDAO accountDAO, MembershipDAO membershipDAO) {
+	public CommandLineRunner commandLineRunner(
+			AccountDAO accountDAO,
+			MembershipDAO membershipDAO,
+			TrafficFortuneService trafficFortuneService) {
 
 		return runner -> {
 
@@ -35,7 +40,15 @@ public class AopdemoApplication {
 			demoTheAfterReturningAdviceMethod(accountDAO);
 
 			demoTheAfterThrowingAdviceMethod(membershipDAO);
+
+			demoTheAroundAdviceMethod(trafficFortuneService);
 		};
+	}
+
+	private void demoTheAroundAdviceMethod(TrafficFortuneService trafficFortuneService) {
+
+		String fortune = trafficFortuneService.getFortune();
+		System.out.println(fortune);
 	}
 
 	private void demoTheAfterThrowingAdviceMethod(MembershipDAO membershipDAO) {

@@ -2,9 +2,11 @@ package com.luv2code.aopdemo.aspect;
 
 import com.luv2code.aopdemo.Account;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -91,5 +93,28 @@ public class MyDemoLoggingAspect {
     public void afterAddAccountAdvice() {
 
         System.out.println("===>Executing @After advice on method\n");
+    }
+
+    @Around(    // wrapping around a method, can handle exceptions
+            "execution(* com.luv2code.aopdemo.service.*.getFortune(..))")
+    public Object aroundAddAccountAdvice(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+
+        String method = proceedingJoinPoint.getSignature().toString();
+        System.out.println("===>Perform @Around in MyLoggingDemoAspect on: " + method);
+
+        // get begin timestamp
+        long begin = System.nanoTime();
+
+        // call target method
+        Object result = proceedingJoinPoint.proceed();
+
+        // get end timestamp
+        long end = System.nanoTime();
+
+        // calculate time taken
+        long timeTaken = end - begin;
+        System.out.println("Time taken: " + timeTaken + "ns");
+
+        return result;
     }
 }
