@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @SpringBootApplication
@@ -32,7 +33,18 @@ public class AopdemoApplication {
 			demoTheBeforeAdviceMethod(accountDAO);
 
 			demoTheAfterReturningAdviceMethod(accountDAO);
+
+			demoTheAfterThrowingAdviceMethod(membershipDAO);
 		};
+	}
+
+	private void demoTheAfterThrowingAdviceMethod(MembershipDAO membershipDAO) {
+
+		try {
+			membershipDAO.addAccount();
+		} catch (SQLException e) {
+			System.out.println("Caught exception: " + e);
+		}
 	}
 
 	private void demoTheBeforeAdviceMethod(AccountDAO accountDAO) {
@@ -42,8 +54,6 @@ public class AopdemoApplication {
 		account.setLevel("Platinum");
 
 		accountDAO.addAccount(account);
-
-		membershipDAOImpl.addAccount();
 
 		accountDAO.setName("foobar");
 		System.out.println("AccountDAO name: " + accountDAO.getName() + "\n");

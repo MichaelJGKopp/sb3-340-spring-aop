@@ -4,6 +4,7 @@ import com.luv2code.aopdemo.Account;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -49,7 +50,7 @@ public class MyDemoLoggingAspect {
         }
     }
 
-    @AfterReturning(
+    @AfterReturning(    // if value is returned, no exception
             pointcut = "com.luv2code.aopdemo.aspect.AopExpressions.forDaoPackageWithoutGettersAndSetters()",
             returning = "result")
     public void afterReturningAddAccountAdvice(JoinPoint joinPoint, List<Account> result) {
@@ -63,11 +64,27 @@ public class MyDemoLoggingAspect {
         // modify the return value, careful to communicate this with your team
         if (!result.isEmpty()) {
 
+            // change the account name of the first entry
             result.getFirst().setName("Changed Name");
+
+            // convert account names to uppercase
+            for (Account a : result) {
+                a.setName(a.getName().toUpperCase());
+            }
         }
 
         System.out.println("Return value List<Account>: ");
         result.forEach(System.out::println);
+    }
+
+    @AfterThrowing( // after an exception is thrown
+            pointcut="com.luv2code.aopdemo.aspect.AopExpressions.forDaoPackageWithoutGettersAndSetters()",
+            throwing="exception")
+    public void afterThrowingAddAccountAdvice(JoinPoint joinPoint, Throwable exception) {
+
+        String method = joinPoint.getSignature().toShortString();
+        System.out.println("===>Perform @AfterThrowing in MyLoggingDemoAspect on: " + method + "\n"
+                + "exception: " + exception);
     }
 
     @After("com.luv2code.aopdemo.aspect.AopExpressions.forDaoPackageWithoutGettersAndSetters()")
@@ -75,5 +92,4 @@ public class MyDemoLoggingAspect {
 
         System.out.println("===>Executing @After advice on method\n");
     }
-
 }
