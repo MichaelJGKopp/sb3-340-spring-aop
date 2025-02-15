@@ -60,6 +60,12 @@ public class MyDemoLoggingAspect {
                 .toShortString();
         System.out.println("===>Perform @AfterReturning in logging demo aspect on: " + method);
 
+        // modify the return value, careful to communicate this with your team
+        if (!result.isEmpty()) {
+
+            result.getFirst().setName("Changed Name");
+        }
+
         System.out.println("Return value List<Account>: ");
         result.forEach(System.out::println);
     }

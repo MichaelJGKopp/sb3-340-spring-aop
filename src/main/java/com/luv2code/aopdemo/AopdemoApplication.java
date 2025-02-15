@@ -53,5 +53,7 @@ public class AopdemoApplication {
 	private void demoTheAfterReturningAdviceMethod(AccountDAO accountDAO) {
 
 		List<Account> accounts = accountDAO.findAccounts();
+
+		System.out.println("accounts, changed return value during advice: " + accounts);
 	}
 }
