@@ -8,6 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
+
 @SpringBootApplication
 public class AopdemoApplication {
 
@@ -28,6 +30,8 @@ public class AopdemoApplication {
 		return runner -> {
 
 			demoTheBeforeAdviceMethod(accountDAO);
+
+			demoTheAfterReturningAdviceMethod(accountDAO);
 		};
 	}
 
@@ -44,6 +48,10 @@ public class AopdemoApplication {
 		accountDAO.setName("foobar");
 		System.out.println("AccountDAO name: " + accountDAO.getName() + "\n");
 
-		accountDAO.findAccounts();
+	}
+
+	private void demoTheAfterReturningAdviceMethod(AccountDAO accountDAO) {
+
+		List<Account> accounts = accountDAO.findAccounts();
 	}
 }
