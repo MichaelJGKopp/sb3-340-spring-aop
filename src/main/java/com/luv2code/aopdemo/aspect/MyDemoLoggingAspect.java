@@ -21,7 +21,7 @@ public class MyDemoLoggingAspect {
 
     // WHEN USING * LIMIT RANGE TO PROJECT PACKAGE, NARROW POINT CUT EXPRESSION
 
-//    @Before("execution(public void addAccount())") // match any class
+    //    @Before("execution(public void addAccount())") // match any class
 //    @Before("execution(public void com.luv2code.aopdemo.dao.AccountDAO.addAccount())")  // match specific interface/implementation
 //    @Before("execution(public void add*())")  // match any method starting with add
 //    @Before("execution(* add*(com.luv2code.aopdemo.Account))")  // match specific parameter
@@ -50,17 +50,17 @@ public class MyDemoLoggingAspect {
     }
 
     @AfterReturning(
-            value="com.luv2code.aopdemo.aspect.AopExpressions.forDaoPackageWithoutGettersAndSetters()",
-            returning="result")
+            pointcut = "com.luv2code.aopdemo.aspect.AopExpressions.forDaoPackageWithoutGettersAndSetters()",
+            returning = "result")
     public void afterReturningAddAccountAdvice(JoinPoint joinPoint, List<Account> result) {
 
-        System.out.println("===>Perform @AfterReturning logging demo aspect");
+        String method = joinPoint.getSignature()
+//                .toLongString();
+//                .toString();
+                .toShortString();
+        System.out.println("===>Perform @AfterReturning in logging demo aspect on: " + method);
 
-        // display the method signature
-        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-        System.out.println("Method: " + methodSignature);
-
-        System.out.println("Result: ");
+        System.out.println("Return value List<Account>: ");
         result.forEach(System.out::println);
     }
 
