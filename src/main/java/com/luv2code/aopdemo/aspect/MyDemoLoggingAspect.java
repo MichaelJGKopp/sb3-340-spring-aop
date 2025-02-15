@@ -3,11 +3,14 @@ package com.luv2code.aopdemo.aspect;
 import com.luv2code.aopdemo.Account;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Aspect
 @Order(2)
@@ -44,6 +47,21 @@ public class MyDemoLoggingAspect {
                 System.out.println("Account level: " + account.getLevel());
             }
         }
+    }
+
+    @AfterReturning(
+            value="com.luv2code.aopdemo.aspect.AopExpressions.forDaoPackageWithoutGettersAndSetters()",
+            returning="result")
+    public void afterReturningAddAccountAdvice(JoinPoint joinPoint, List<Account> result) {
+
+        System.out.println("===>Perform @AfterReturning logging demo aspect");
+
+        // display the method signature
+        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+        System.out.println("Method: " + methodSignature);
+
+        System.out.println("Result: ");
+        result.forEach(System.out::println);
     }
 
     @After("com.luv2code.aopdemo.aspect.AopExpressions.forDaoPackageWithoutGettersAndSetters()")

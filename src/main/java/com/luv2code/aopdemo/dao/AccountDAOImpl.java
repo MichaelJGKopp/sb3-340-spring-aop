@@ -3,6 +3,8 @@ package com.luv2code.aopdemo.dao;
 import com.luv2code.aopdemo.Account;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class AccountDAOImpl implements AccountDAO {
 
@@ -18,6 +20,13 @@ public class AccountDAOImpl implements AccountDAO {
     public String getName() {
         System.out.println(getClass() + ": Getting account name");
         return name;
+    }
+
+    @Override
+    public List<Account> findAllAccounts() {
+        return List.of(
+                new Account("John", "Silver"),
+                new Account("Madhu", "Platinum"));
     }
 
     @Override
