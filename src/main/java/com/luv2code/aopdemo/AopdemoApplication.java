@@ -48,8 +48,13 @@ public class AopdemoApplication {
 	}
 
 	private void demoTheAroundAdviceMethodHandleException(TrafficFortuneService trafficFortuneService) {
-		String fortune = trafficFortuneService.getFortune(true);
-		System.out.println("Fortune return value: " + fortune);
+
+		try {
+			String fortune = trafficFortuneService.getFortune(true);
+			System.out.println("Fortune return value: " + fortune);
+		} catch (RuntimeException e) {
+			System.out.println("Caught exception in main after AOPProxy: " + e);
+		}
 	}
 
 	private void demoTheAroundAdviceMethod(TrafficFortuneService trafficFortuneService) {

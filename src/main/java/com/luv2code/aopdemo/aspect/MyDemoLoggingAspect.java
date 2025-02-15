@@ -115,8 +115,11 @@ public class MyDemoLoggingAspect {
             // log exception
             System.out.println("@Around advice, exception caught: " + e);
 
-            // give default return value
-            result = "Default return value";
+//            // give default return value, handling unimportant exception
+//            result = "Default return value";
+
+            // rethrow exception
+            throw e;
         }
 
         // get end timestamp
